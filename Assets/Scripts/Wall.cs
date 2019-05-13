@@ -11,7 +11,7 @@ public class Wall : MonoBehaviour
     public AudioClip chopSound2;
 
     private SpriteRenderer spriteRenderer;
-        
+    
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

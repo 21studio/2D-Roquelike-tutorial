@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic; // List 사용 가능
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -10,14 +10,17 @@ public class GameManager : MonoBehaviour
     public float turnDelay = .1f; // 턴 사이에 게임이 얼마 동안 대기하는가    
     public static GameManager instance = null;
     public BoardManager boardScript;
+    
     public int playerFoodPoints = 100;
     [HideInInspector] public bool playersTurn = true;
 
     private Text levelText;
     private GameObject levelImage;
-    private int level = 1;
+    
+    private int level = 1;    
+    
     private List<Enemy> enemies;
-    private bool enemieMoving;
+    private bool enemiesMoving;
     private bool doingSetup; // 게임 보드를 만드는 중인지 체크 (플레이어 움직임을 막기 위해)
         
     void Awake()
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-        if (playersTurn || enemieMoving || doingSetup) // playersTurn 혹은 적이 이동중이라면, 아래 코드를 실행하지 않기 위해 리턴함
+        if (playersTurn || enemiesMoving || doingSetup) // playersTurn 혹은 적이 이동중이라면, 아래 코드를 실행하지 않기 위해 리턴함
             return;
 
         StartCoroutine (MoveEnemies()); // 위 조건이 모두 거짓이면 코루틴 실행
@@ -99,9 +102,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveEnemies()
     {
-        enemieMoving = true;
+        enemiesMoving = true;
         yield return new WaitForSeconds(turnDelay);
-        if (enemies.Count == 0) // 적이 아무도 없다면, 즉 첫 레벨이라는 뜻
+        
+        if (enemies.Count == 0) // 또한 적이 아무도 없다면, 즉 첫 레벨
         {
             yield return new WaitForSeconds(turnDelay); // 대기하는 적이 없지만 일단 플레이어가 기다리게 한다
         }
@@ -113,6 +117,6 @@ public class GameManager : MonoBehaviour
         }
 
         playersTurn = true;
-        enemieMoving = false;
+        enemiesMoving = false;
     }
 }

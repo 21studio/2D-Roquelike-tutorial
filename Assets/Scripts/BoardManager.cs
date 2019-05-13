@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic; // List 사용
 using UnityEngine;
-using System; // 직렬화 (Serializable) 사용할 수 있다
+using System; // 직렬화 (Serializable) 사용
 using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
@@ -21,8 +21,10 @@ public class BoardManager : MonoBehaviour
 
     public int columns = 8;
     public int rows = 8;
+    
     public Count wallCount = new Count (5, 9);
     public Count foodCount = new Count (1, 5);
+    
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
@@ -46,7 +48,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void BoradSetup ()
+    void BoradSetup () // 배경인 바닥 타일들 + 바깥의 벽 타일을 배치한다
     {
         boardHolder = new GameObject ("Board").transform;
 
@@ -66,7 +68,7 @@ public class BoardManager : MonoBehaviour
         }
     }
     
-    Vector3 RandomPosition()
+    Vector3 RandomPosition() // 리스트에서 랜덤 위치를 뽑는다
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
         Vector3 RandomPosition = gridPositions[randomIndex];
@@ -74,9 +76,9 @@ public class BoardManager : MonoBehaviour
         return RandomPosition;
     }
 
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum) // 선택한 장소에 실제로 타일을 소환하는 함수
     {
-        int objectCount = Random.Range (minimum, maximum + 1);
+        int objectCount = Random.Range (minimum, maximum + 1); // 주어진 오브젝트를 얼마나 스폰할지 조정
 
         for (int i = 0; i < objectCount; i++)
         {
