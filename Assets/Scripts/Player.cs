@@ -23,7 +23,7 @@ public class Player : MovingObject
     private Animator animator;
     private int food;
 
-    private Vector2 touchOrigin = -Vector2.one;
+    private Vector2 touchOrigin = -Vector2.one; // -Vector2.one 는 스크린 밖의 위치를 의미. 이것은 터치 입력이 있는지 체크하기 위한 초기 상태임
         
     protected override void Start()
     {
